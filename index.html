@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema Ferretería</title>
+    <link rel="stylesheet" href="css/style.css">
+    
+</head>
+<body>
+    <div id="app">
+        <header>
+            <div style="display:flex; align-items:center; gap:15px;">
+                <h1>Inversiones J.J.D.M</h1>
+            </div>
+            <div id="userInfo">
+                <span id="userName"> Cargando...</span>
+                <button id="btnLogout" class="btn btn-danger">
+                    <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
+                </button>
+            </div>
+        </header>
+
+        <nav id="mainNav">
+            <button class="nav-btn" data-view="menu"> Inicio</button>
+            <button class="nav-btn" data-view="inventario"> Inventario</button>
+            <button class="nav-btn" data-view="ventas"> Ventas</button>
+            <button class="nav-btn" data-view="proveedores"> Proveedores</button>
+            <button class="nav-btn" data-view="usuarios"> Usuarios</button>
+        </nav>
+
+        <main id="mainContent"></main>
+
+        <footer>
+            <p>© 2026 - Sistema Ferretería - Todos los derechos reservados</p>
+        </footer>
+    </div>
+
+    
+    <script>
+        
+        (function verificarSesion() {
+            const sesionActiva = localStorage.getItem('sesionActiva');
+            const usuarioData = localStorage.getItem('usuarioActual');
+            
+            if (!sesionActiva || sesionActiva !== 'true' || !usuarioData) {
+            
+                window.location.href = 'login.html';
+                return;
+            }
+            
+            try {
+                const usuario = JSON.parse(usuarioData);
+            
+                document.getElementById('userName').textContent = ` ${usuario.nombre}`;
+            } catch (e) {
+                localStorage.removeItem('sesionActiva');
+                localStorage.removeItem('usuarioActual');
+                window.location.href = 'login.html';
+            }
+        })();
+    </script>
+
+  
+    <script src="./src/models/usuario.js"></script>
+    <script src="./src/models/producto.js"></script>
+    <script src="./src/models/venta.js"></script>
+    <script src="./src/models/proveedor.js"></script>
+    <script src="./src/database/datamanager.js"></script>
+    <script src="./src/controllers/UsuarioController.js"></script>
+    <script src="./src/controllers/inventariocontroller.js"></script>
+    <script src="./src/controllers/ventacontroller.js"></script>
+    <script src="./src/controllers/proveedorcontroller.js"></script>
+    <script src="./src/views/menuview.js"></script>
+    <script src="./src/views/loginview.js"></script>
+    <script src="./src/views/inventarioview.js"></script>
+    <script src="./src/views/ventasview.js"></script>
+    <script src="./src/views/proveedorview.js"></script>
+    <script src="./src/views/usuarioview.js"></script>
+    <script src="./src/app.js/app.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</body>
+</html>
