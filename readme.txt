@@ -1,4 +1,3 @@
-me gustan losn hombres 2.0 
 ###PATH:src\app.js\index.js
 import { MenuView } from "../views/menuview";
 import { UsuariosView } from "../views/usuarioview";
